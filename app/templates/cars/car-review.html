@@ -1,0 +1,411 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/review.css')}}">{% endblock more_styles %}
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            {% include 'includes/messages.html' %}
+            <h1>{{car.car_title}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">{{car.car_title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Car details page start -->
+<div class="car-details-page content-area-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+                <div class="car-details-section">
+                    <!-- Heading start -->
+                    <div class="heading-car clearfix">
+                        <div class="pull-left">
+                            <h3>{{car.car_title}}</h3>
+                            <h6>
+                                <i class="flaticon-pin"></i>{{car.country}}, {{car.city}}
+                            </h6>
+                        </div>
+                        <div class="pull-right">
+                            <h3><span>£{{car.price}}</span></h3>
+                        </div>
+                    </div>
+                    <div id="carDetailsSlider" class="carousel car-details-sliders slide mb-40">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+                            {% if car.car_photo %}
+                            <div class="active item carousel-item" data-slide-number="0">
+                                <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo)}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if car.car_photo_1 %}
+                            <div class="item carousel-item" data-slide-number="1">
+                                <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_1)}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if car.car_photo_2 %}
+                            <div class="item carousel-item" data-slide-number="2">
+                                <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_2)}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                            {% if car.car_photo_3 %}
+                            <div class="item carousel-item" data-slide-number="4">
+                                <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_3)}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+
+                            {% if car.car_photo_4 %}
+                            <div class="item carousel-item" data-slide-number="5">
+                                <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_4)}}" class="img-fluid" alt="slider-car">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- main slider carousel nav controls -->
+                        <div class="carousel-indicators-section clearfix">
+                            <ul class="carousel-indicators car-properties list-inline nav nav-justified">
+                                {% if car.car_photo %}
+                                <li class="list-inline-item active">
+                                    <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#carDetailsSlider">
+                                        <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo)}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if car.car_photo_1 %}
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-1" data-slide-to="1" data-target="#carDetailsSlider">
+                                        <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_1)}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if car.car_photo_2 %}
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-2" data-slide-to="2" data-target="#carDetailsSlider">
+                                        <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_2)}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if car.car_photo_3 %}
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-3" data-slide-to="3" data-target="#carDetailsSlider">
+                                        <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_3)}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if car.car_photo_4 %}
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-4" data-slide-to="4" data-target="#carDetailsSlider">
+                                        <img src="{{url_for('static', filename='uploaded-images/' + car.car_photo_4)}}" class="img-fluid" alt="small-car">
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabbing box start -->
+                    <div class="tabbing tabbing-box mb-40">
+                        <ul class="nav nav-tabs" id="carTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Vehicle overview</a>
+                            </li>
+                           
+                        </ul>
+                        <div class="tab-content" id="carTabContent">
+                            <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                <div class="car-description mb-50">
+                                    <h3 class="heading-2">
+                                        Description
+                                    </h3>
+                                    <p class="pb-5 mb-5">{{car.description}}</p>
+                                    
+                                    <div>
+                                        {% if current_user.is_authenticated %}
+                                        <div class="card rounded-0 border-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                            
+                                                <div class="card-body">
+                                                    {{ ckeditor.load() }}
+                                                    {{ ckeditor.config(name='text') }}
+                                                    {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "info"}) }}
+                                                    <div class="text-right">
+                                                        <span><b>{{current_user.username}}</b></span>
+                                                        <span class="round"><img src="{{ current_user.email | gravatar }}" alt="user" width="50"></span>
+                                                    </div>
+                                                </div>
+                                            
+                                          </div>
+                                        {% else %}
+                                        <div class="card rounded-0 border-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                                            
+                                                <div class="card-body">
+                                                    <b>You have to be logged in to give review  <a href="{{ url_for('auth.login') }}" class="sign-in"><i class="fa fa-sign-in"></i> Login</a></b>
+                                                </div>
+                                            
+                                        </div>
+                                        {% endif %}  
+                                    </div>
+
+                                    {% if car.reviews and car.reviews.count() > 0 %}
+                                    <div class="mt-5">
+                                        <div class="card rounded-0 border-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; width:100%;">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-3"><b>Recent Reviews</b></h4>
+                                                <h6 class="card-subtitle">Latest Reviews section by users</h6>
+                                            </div>
+                                            <div class="comment-widgets m-b-20">
+                                                <div class="row">
+                                                {% for review in car.reviews.all() %}
+                                                <div class="col-md-12">
+                                                    <div class="d-flex flex-row comment-row">
+                                                        <div class="p-2"><span class="round"><img src="{{ review.user.email | gravatar }}" alt="user" width="50"></span></div>
+                                                        <div class="comment-text">
+                                                            <h5>{{ review.user.username }}</h5>
+                                                            <div class="comment-footer"> 
+                                                                <small class="date text-muted">Created {{ moment(review.created_at).fromNow() }}</small>
+                                                                {% if review.updated %}
+                                                                <small class="date text-muted">Updated {{ moment(review.updated_at).fromNow()}}</small>
+                                                                {% endif %}
+                                                                {% if current_user.username == review.user.username %}
+                                                                <a href="{{ url_for('cars.edit_review', car_id=review.car_id) }}" ><span class="action-icons"><i class="fa fa-pencil"></i></span> </a>
+                                                                <!-- <a href="#" class="btn btn-danger btn-sm">Delete </a> -->
+                                                                <!-- Button trigger modal -->
+                                                                <button type="button"  class="no-style" data-toggle="modal" data-target="#deleteModal">
+                                                                    <span class="action-icons"> <i class="fa fa-times"></i> </span>
+                                                                </button>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h3 class="modal-title" id="deleteModalLabel">Deleting review</h3>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <h4>Are you sure?</h4>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                            <a href="{{ url_for('cars.delete_review', id1=car.id, id2=review.id) }}" class="btn btn-success">Yes</a>
+                                                                        </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {% endif %} 
+                                                                </div>
+                                                            <p class="m-b-5 m-t-10">{{ review.text|safe }}</p>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                  
+                           
+                                
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search d-none-992">
+                        <div class="d-flex justify-content-center">
+                            <div class="content text-center">
+                                <div class="ratings"> <span class="product-rating">{{ average }}</span><span>/5</span>
+                                    <div class="stars"> 
+                                        {% for n in range(average|int) %}
+                                        <i class="fa fa-star"></i> 
+                                        {% endfor %}
+                                    </div>
+                                    <div class="rating-text"> <span>{{car.reviews.count()}} review{% if car.reviews.count() > 1 %}s{% endif %} </span> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-danger bomd btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Send message</button>
+
+
+                        <br>
+                        <h3 class="sidebar-title">Refine Your Search</h3>
+                        <ul>
+                            
+                           
+                            <li>
+                                <span>Make:</span>{{car.make}}
+                            </li>
+                            <li>
+                                <span>Model:</span>{{car.model}}
+                            </li>
+                            <li>
+                                <span>Model:</span>{{car.year}}
+                            </li>
+                            <li>
+                                <span>Model:</span>{{car.gearbox}}
+                            </li>
+                            <li>
+                                <span>Color:</span>{{car.color}}
+                            </li>
+                            
+                            <li>
+                                <span>Miles:</span>{{car.miles}} km
+                            </li>
+                           
+                          
+                            <li>
+                                <span>Vin #:</span>{{car.reg_no}}
+                            </li>
+                            <li>
+                                <span>Fuel Mileage:</span>{{car.mileage}}
+                            </li>
+                            <li>
+                                <span>Fuel Type:</span>{{car.fuel_type}}
+                            </li>
+                           
+                           
+                        </ul>
+                    </div>
+
+                    <!-- Inquiry Modal -->
+                    <div class="modal fade" id="inquiryModal" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="contact-dealer modal-header">
+                            <!-- <h5 class="modal-title" id="inquiryModalLabel">Contact Dealer</h5> -->
+                            <img src="{{url_for('static', filename='img/logos/logo-black-white.png')}}">
+                            <button type="button" class="close" data-dismiss="modal">
+                              <span>&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="" method="POST">
+                                
+
+                                {% if current_user.is_authenticated %}
+                                    <input type="hidden" name="user_id" value="{{current_user.id}}">
+                                {% else %}
+                                    <input type="hidden" name="user_id" value="0">
+                                {% endif %}
+
+                                <input type="hidden" name="car_id" value={{car.id}}>
+
+                                <div class="form-group">
+                                  <label for="name" class="col-form-label">Hello, My Name is</label>
+                                  <div class="row">
+                                    <div class="col">
+                                     {% if current_user.first_name %}
+                                      <input type="text" name="first_name" value="{{current_user.first_name}}" class="form-control" placeholder="First Name" required>
+                                    {% else %}
+                                      <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                    {% endif %}
+                                    </div>
+                                    <div class="col">
+                                    {% if current_user.last_name %}
+                                      <input type="text" name="last_name" value="{{current_user.last_name}}" class="form-control" placeholder="Last Name" required>
+                                    {% else %}
+                                      <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                                    {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                                  <div class="form-group">
+                                      <select class="form-control" id="sel1" name="customer_need">
+                                        <option value="I'm interested in this">I'm interested in this</option>
+                                        <option value="I'd like to know your best price for this">I'd like to know your best price for this</option>
+                                        <option value="I'd like to test drive this">I'd like to test drive this</option>
+                                        <option value="I'd like a history report for this">I'd like a history report for this</option>
+                                      </select>
+                                    </div>
+                                
+                                <div class="form-group">
+                                  <input type="text" name="car_title" class="form-control" value="{{car.car_title}}" readonly>
+                                </div>
+                               
+                                <div class="form-group">
+                                  <label for="name" class="col-form-label">I live in</label>
+                                  <div class="row">
+                                    <div class="col">
+                                      <input type="text" name="city" class="form-control" placeholder="City" required>
+                                    </div>
+                                    <div class="col">
+                                      <input type="text" name="state" class="form-control" placeholder="State" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="row">
+                                    <div class="col">
+                                        <label for="name" class="col-form-label">You can reach me by email at</label>
+
+                                        {% if current_user.email %}
+                                            <input type="email" name="email" class="form-control" value="{{current_user.email}}" placeholder="Email Address" required>
+                                        {% else %}
+                                            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col">
+                                        <label for="phone" class="col-form-label">or by phone at</label>
+                                      <input type="text" name="phone" placeholder="Phone Number (optional)" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="message" class="col-form-label">Add comments</label>
+                                  <textarea name="message" class="form-control" placeholder="Enter your message here (optional)"></textarea>
+                                </div>
+                                <hr>
+                                <input type="submit" value="Send" class="btn btn-block btn-danger">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Question start -->
+                    <div class="widget question">
+                        <h5 class="sidebar-title">Get a Question?</h5>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="flaticon-pin"></i>DMU Gateway House, Leicester LE1 9BH
+                            </li>
+                            <li>
+                                <i class="flaticon-mail"></i><a href="mailto:info@themevessel.com">info_carzone@yahoo.com</a>
+                            </li>
+                            <li>
+                                <i class="flaticon-phone"></i><a href="tel:+0477-85x6-552">+44 116 255 1551</a>
+                            </li>
+                        </ul>
+                        <div class="social-list clearfix">
+                            <ul>
+                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Properties details page end -->
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

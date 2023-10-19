@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/cart.css')}}">{% endblock more_styles %}
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Cart</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">Cart</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Contact 2 start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Color</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th class="text-right">Subtotal</th>
+                                <th> </th>
+                                <th> <a href="{{url_for('cart_bp.clearcart')}}" class="btn btn-danger bomd btn-sm"> Clear cart</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, car in session['Shoppingcart'].items() %}
+                            <tr>
+                                <td><img src="{{url_for('static',filename='uploaded-images/'+ car.image)}}" alt="{{car.name}}" width="50" height="45"> </td>
+                                <td>{{car.name}}</td>
+                                <td>{{car.color | capitalize}}</td>
+                                <form action="{{url_for('cart_bp.update_cart', code=key)}}" method="post">
+                                <td class="text-right">{{"%.2f"|format(car.price)}} £</td>
+                                <td><input type="number" name="quantity" min="1" max="10" class="form-control" value="{{car.quantity}}"></td>
+                                {% set subtotal = car.quantity|int * car.price|float  %}
+                                <td class="text-right">{{"%.2f"|format(subtotal) }} £</td>
+                                <td><button type="submit" class="btn btn-sm btn-info">Update</button> </td>
+                                </form>
+                                <td class="text-center"><a href="{{url_for('cart_bp.deleteitem', id=key)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                            
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right">Tax</td>
+                                <td class="text-right">{{tax}} £</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right"><strong>Grand Total</strong></td>
+                                <td class="text-right"><strong>{{grandtotal}} £</strong></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row mt-5">
+                    <div class="col-sm-12  col-md-6 ">
+                        <a href="{{ url_for('cars.cars_page') }}" class="btn btn-block btn-lg btn-outline-info bomd text-uppercase">Continue Shopping</a>
+                        
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <a href="{{ url_for('checkout.checkout_page') }}" class="btn btn-outline-danger btn-block bomd btn-lg text-uppercase"> Checkout </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Contact 2 end -->
+
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

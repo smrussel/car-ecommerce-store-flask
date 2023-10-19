@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/card.css')}}">{% endblock more_styles %}
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Blog</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">Blog</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <div class="text-center">
+                            <h1 class="fw-bolder mb-3">{{post.title}}</h1>
+                            <h4 class="fw-bolder mb-4">{{post.subtitle}}</h4>
+
+                            <div class="text-muted fst-italic mb-2">Created {{ moment(post.created_at).fromNow() }} by <b>Admin</b></div>
+                        </div>
+                        <!-- Post meta content-->
+                        <!-- Post categories-->
+                    </header>
+                    <!-- Preview image figure-->
+                    <figure class="mb-4"><img class="img-fluid rounded" src="{{url_for('static', filename='uploaded-images/' + post.img_url)}}" alt="..." /></figure>
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        <p class="fs-5 mb-4">{{post.body|safe}}</p>
+                        
+                    </section>
+                </article>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

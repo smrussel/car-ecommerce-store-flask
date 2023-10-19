@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumbs">
+                <li><a href="">Home</a></li>
+                <li class="active">{{current_user.username}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!--   Dashboard Start   -->
+
+<div class="container mt-50 mb-50">
+	<div class="main-title" style="text-align:left !important;">
+		{% include 'includes/messages.html' %}
+            <h1>Welcome <span>{{current_user.username}}</span></h1>
+        </div>
+	
+		<h4>Sell or Trade in Car</h4>
+		<p>To start your no-obligation trade-in appraisal, tell us a little about your car and how to reach you. Then, one of our professional Sales Consultants will contact you to set up a complimentary in-person appointment to determine trade-in value. There is no obligation to sell or trade in your car</p>
+		<form action="{{ url_for('auth.dashboard') }}" method="post">
+			<div>
+				<h6><b>Trade-in Information</b></h6>
+				<hr>
+			</div>
+			<br>
+		
+			<div class="row">
+				<div class="col">
+					<label class="form-label" for="">Year</label>
+					<input class="form-control" type="text" name="year" id="">
+				</div>
+				<div class="col">
+					<label class="form-label" for="">Make</label>
+					<input class="form-control" type="text" name="make" id="">
+				</div>
+				<div class="col">
+					<label class="form-label" for="">Model</label>
+					<input class="form-control" type="text" name="model" id="">
+				</div>
+				<div class="col">
+					<label class="form-label" for="">Mileage</label>
+					<input class="form-control" type="text" name="mileage" id="">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col">
+					<label class="form-label" for="">Comments/Questions</label>
+					<textarea class="form-control" name="comments" id="" cols="30" rows="10"></textarea>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div>
+				<h6><b>Contact Information</b></h6>
+				<hr>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<div class="col">
+
+							<div class="mb-3">
+								<label class="form-label" for="">First Name</label>
+								<input class="form-control" type="text" name="first_name" id="">
+							</div>
+						</div>
+						<div class="col">
+							<div class="mb-3">
+								<label class="form-label" for="">Last Name</label>
+								<input class="form-control" type="text" name="last_name" id="">
+							</div>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+
+							<div class="mb-3">
+								<label class="form-label" for="">E-Mail Address</label>
+								<input class="form-control" type="email" name="email" id="">
+							</div>
+						</div>
+						<div class="col">
+
+							<div class="mb-3">
+								<label class="form-label" for="">Phone Number</label>
+								<input class="form-control" type="text" name="phone" id="">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="mb-3">
+								<label class="form-label" for="">Zip Code</label>
+								<input class="form-control" type="text" name="zip" id="">
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col text-center">
+							<input type="submit" value="Submit" class="btn btn-lg btn-info">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	
+</div>
+
+<!--   Dashboard End   -->
+
+{% include 'includes/extras.html' %}
+
+
+{% endblock content %}

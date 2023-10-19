@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/checkout.css')}}">{% endblock more_styles %}
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Order</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">Order</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Contact 2 start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                    <b>Invoice:</b>  {{customer_order.invoice}}
+                    <br>
+                    <b>Payment Status:</b> {{customer_order.payment_status}}
+                    <br>
+                    <b>Customer name:</b> {{customer.username}}
+                    <br>
+                    <b>Customer email:</b> {{customer.email}}
+                    <br>
+                    <br>
+            </div>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Color</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th class="text-right">Subtotal</th>
+                   
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for car in customer_order.orders %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{car.car_title}}</td>
+                                <td>{{car.color | capitalize}}</td>
+                                
+                                <td class="text-right">{{"%.2f"|format(car.price)}} £</td>
+                                <td>{{car.quantity}}</td>
+                                {% set subtotal = car.quantity|int * car.price|float  %}
+                                <td class="text-right">{{"%.2f"|format(subtotal) }} £</td>
+
+                            </tr>
+                            {% endfor %}
+                            
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right">Tax</td>
+                                <td class="text-right">{{tax}} £</td>
+                         
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right"><strong>Grand Total</strong></td>
+                                <td class="text-right"><strong>{{grandTotal}} £</strong></td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row mt-5">
+                    <div class="col-sm-12  col-md-6 ">
+                        <a href="https://www.paypal.com/" class="btn btn-block btn-lg btn-outline-info bomd text-uppercase">Pay with Paypal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact 2 end -->
+
+{% include 'includes/extras.html' %}
+
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/checkout.css')}}">{% endblock more_styles %}
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Checkout</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">Checkout</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Contact 2 start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+                <div class="card rounded-0 border-0 p-5 shadow">
+                    {% include 'includes/messages.html' %}
+                    <div class="card-body">
+                        <h5 class="text-center">Reserved for 7 days .Your reference id is : {{reference}}</h5>
+                    </div>
+                  </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact 2 end -->
+
+{% include 'includes/extras.html' %}
+
+
+{% endblock content %}

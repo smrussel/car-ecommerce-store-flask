@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Our Car Inventory</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">Cars</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        {% include 'includes/messages.html' %}
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                
+                <div class="row">
+                    {% for car in all_cars.items  %}
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car-box-3">
+                                <div class="car-thumbnail">
+                                    <a href="{{ url_for('cars.car_detail', car_id=car.id) }}" class="car-img">
+                                        <div class="tag">For Sale</div>
+                                        <div class="price-box">
+                                            <span>£{{car.price}}</span>
+                                        </div>
+                                        <img class="d-block w-100" src="{{url_for('static', filename='uploaded-images/' + car.car_photo)}}" alt="car" style="min-height: 262px; max-height: 262px;">
+                                    </a>
+                                    <div class="carbox-overlap-wrapper">
+                                        <div class="overlap-box">
+                                            <div class="overlap-btns-area">
+                                                <div class="car-magnify-gallery">
+                                                    <a href="{{url_for('static', filename='uploaded-images/' + car.car_photo)}}" class="overlap-btn">
+                                                        <i class="fa fa-expand"></i>
+                                                        <img class="hidden" src="{{url_for('static', filename='uploaded-images/' + car.car_photo)}}">
+                                                    </a>
+                                                    {% if car.car_photo_1 %}
+                                                        <a href="{{url_for('static', filename='uploaded-images/' + car.car_photo_1)}}" class="hidden" >
+                                                            <img class="hidden" src="{{url_for('static', filename='uploaded-images/' + car.car_photo_1)}}">
+                                                        </a>
+                                                    {% endif %}
+                                                    {% if car.car_photo_2 %}
+                                                        <a href="{{url_for('static', filename='uploaded-images/' + car.car_photo_2)}}" class="hidden">
+                                                            <img class="hidden" src="{{url_for('static', filename='uploaded-images/' + car.car_photo_2)}}">
+                                                        </a>
+                                                    {% endif %}
+                                                    {% if car.car_photo_3 %}
+                                                        <a href="{{url_for('static', filename='uploaded-images/' + car.car_photo_3)}}" class="hidden">
+                                                            <img class="hidden" src="{{url_for('static', filename='uploaded-images/' + car.car_photo_3)}}">
+                                                        </a>
+                                                    {% endif %}
+                                                    {% if car.car_photo_4 %}
+                                                        <a href="{{url_for('static', filename='uploaded-images/' + car.car_photo_4)}}" class="hidden" >
+                                                            <img class="hidden" src="{{url_for('static', filename='uploaded-images/' + car.car_photo_4)}}">
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail">
+                                    <h1 class="title">
+                                        <a href="{{ url_for('cars.car_detail', car_id=car.id) }}">{{car.car_title}}</a>
+                                    </h1>
+                                    <div class="location">
+                                        <a href="{{ url_for('cars.car_detail', car_id=car.id) }}">
+                                            <i class="flaticon-pin"></i>{{car.country}}, {{car.city}}
+                                        </a>
+                                    </div>
+                                    <ul class="facilities-list clearfix">
+                                        <li>{{car.fuel_type}}</li>
+                                        <li>{{car.miles}} km</li>
+                                       
+                                        
+                                        <li>{{car.color}}</li>
+                                        <li>{{car.make}}</li>
+                                    </ul>
+                                    <div class="mt-4">
+                                        <form action="{{url_for('cart_bp.add_cart')}}" method="post">
+                                            <input type="hidden" name="car_id" value="{{car.id}}">
+                                            <input type="hidden" name="quantity" value="1" min="1" max="20">
+                                            <button type="submit" class="btn btn-danger bomd btn-block">ADD TO CART</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Page navigation start -->
+                <div class="pagination-box p-box-2 text-center">
+                    <nav aria-label="Page navigation example">
+                       
+                        <ul class="pagination">
+                            {% if all_cars.has_prev %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{{url_for('cars.cars_page', page=all_cars.prev_num)}}"><i class="fa fa-angle-left"></i></a>
+                                </li>
+                            {% endif %}
+
+                            {% if all_cars.total> 6 %}
+                            {% for page_num in all_cars.iter_pages(left_edge=1, right_edge=2, left_current=1,right_current=2) %}
+                            {% if page_num %}
+                            {% if all_cars.page == page_num %}
+                            
+                                    <li class="page-item"><a class="page-link active" href="{{url_for('cars.cars_page', page=page_num)}}">{{page_num}}</a></li>
+                                    {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{url_for('cars.cars_page', page=page_num)}}">{{page_num}}</a></li>
+                                {% endif %}
+                                {% else %}
+                                ...
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                                {% if all_cars.has_next %}
+                            
+                           
+                                <li class="page-item">
+                                    <a class="page-link" href="{{url_for('cars.cars_page', page=all_cars.next_num)}}"><i class="fa fa-angle-right"></i></a>
+                                </li>
+                                {% endif %}
+                        </ul>
+                        
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search2">
+                        <h3 class="sidebar-title">Search your desire car</h3>
+                        <form action="{{ url_for('cars.car_search') }}" method="GET">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Search by name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="make">
+                                    <option selected="true" disabled="disabled">Make</option>
+                                    {% for make in make_search %}
+                                        <option value="{{make}}">{{make}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="model">
+                                    <option selected="true" disabled="disabled">Model</option>
+                                    {% for model in model_search %}
+                                        <option value="{{model}}">{{model}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control search-fields" name="color">
+                                    <option selected="true" disabled="disabled">Color</option>
+                                    {% for color in color_search %}
+                                        <option value="{{color}}">{{color}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="range-slider clearfix">
+                                            <label>Price</label>
+                                            <div data-min="0" data-max="150000"  data-min-name="min_price" data-max-name="max_price" data-unit="GBP" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                            <div class="form-group">
+                                <button class="btn btn-block button-theme btn-md">
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                   
+                    <!-- Question start -->
+                    <div class="widget question widget-3">
+                        <h5 class="sidebar-title">Follow us</h5>
+                        <div class="social-list clearfix">
+                            <ul>
+                                <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

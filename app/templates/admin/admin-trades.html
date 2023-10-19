@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Admin Panel</h1>
+            <ul class="breadcrumbs">
+                <li><a href="">Home</a></li>
+                <li class="active">View Trades</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+{% include 'admin/includes/admin-nav.html' %}
+<!--   Dashboard Start   -->
+
+<!-- Contact 2 start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <table class="table tbale-sm">
+            <thead>
+                <th>Sr</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Zip</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Mileage</th>
+                <th>Comments/Questions</th>
+                
+            </thead>
+            <tbody>
+              {% for trade in trades %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{trade.first_name}}</td>
+                <td>{{trade.last_name}}</td>
+                <td>{{trade.phone}}</td>
+                <td>{{trade.email}}</td>
+                <td>{{trade.zip}}</td>
+                <td>{{trade.make}}</td>
+                <td>{{trade.model}}</td>
+                <td>{{trade.year}}</td>
+                <td>{{trade.mileage}}</td>
+                <td>{{trade.comments}}</td>
+              </tr>
+    
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--   Dashboard End   -->
+
+
+
+
+{% endblock content %}

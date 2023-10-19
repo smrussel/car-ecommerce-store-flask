@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block more_styles %}<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/faq.css')}}">{% endblock more_styles %}
+
+{% block content %}
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>FAQ</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li class="active">FAQ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+<!-- Service center strat -->
+
+<!-- Service center end -->
+
+
+
+
+<div class="faq_area section_padding_130" id="faq">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-lg-6">
+                <!-- Section Heading-->
+                <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                    <h3><span>Frequently </span> Asked Questions</h3>
+                    <p>Find the answers for the most frequently asked questions below</p>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <!-- FAQ Area-->
+            <div class="col-12 col-sm-10 col-lg-8">
+                <div class="accordion faq-accordian" id="faqAccordion">
+                    {% for faq in faqs %}
+                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                        <div class="card-header" id="headingOne">
+                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapse-{{faq.id}}" aria-expanded="true" aria-controls="collapseOne">{{faq.question}}<span class="lni-chevron-up"></span></h6>
+                        </div>
+                        <div class="collapse" id="collapse-{{faq.id}}" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                            <div class="card-body">
+                                <p>{{faq.answer}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Support Button-->
+                <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                    <i class="lni-emoji-sad"></i>
+                    <p class="mb-0 px-2">Can't find your answers?</p>
+                    <a href="{{ url_for('pages.contact') }}"> Contact us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

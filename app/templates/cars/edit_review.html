@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+
+{% block content %}
+
+<div class="sub-banner overview-bgi">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>Edit Review</h1>
+            <ul class="breadcrumbs">
+                <li><a href="">Home</a></li>
+                <li class="active">Edit Review</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+
+
+<!-- Contact section start -->
+<div class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-section">
+                    <div class="logo-2">
+                        <a href="">
+                            <img src="{{url_for('static', filename='img/logos/black-logo.png')}}" alt="logo">
+                        </a>
+                    </div>
+                    <h3>Edit Review</h3>
+                    {% include 'includes/messages.html' %}
+                    {{ ckeditor.load() }}
+                    {{ ckeditor.config(name='text') }}
+                    {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact section end -->
+
+{% include 'includes/extras.html' %}
+
+{% endblock content %}

@@ -1,0 +1,116 @@
+<header class="main-header sticky-header header-with-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand company-logo" href="">
+                <img src="../../static/img/logos/logo.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="navbar-collapse collapse w-100" id="navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a
+                        {% if '/' == request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                        href="/">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                       {% if 'car' in request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                        href="{{ url_for('cars.cars_page') }}">
+                            Cars
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                       {% if 'review' in request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                        href="{{ url_for('cars.all_car_reviews') }}">
+                            Car Reviews
+                        </a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a
+                        {% if 'insurance' in request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                        href="">
+                           Insurance
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                        {% if 'blog' in request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                        href="{{ url_for('blogs.all_blogs') }}">
+                           Blog
+                        </a>
+                    </li>
+
+
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          More
+                        </a>
+                        <div class="dropdown-menu bg-dark"  aria-labelledby="navbarDropdownMenuLink">
+                            <a
+                            {% if 'contact' in request.path %}
+                            class="dropdown-item active text-light"
+                            {% else %}
+                            class="dropdown-item text-light"
+                            {% endif %}
+                            href="{{ url_for('pages.contact') }}">CONTACT</a>
+                            <a
+                            {% if 'about' in request.path %}
+                            class="dropdown-item active text-light"
+                            {% else %}
+                            class="dropdown-item text-light"
+                            {% endif %}
+                            href="{{ url_for('pages.about') }}">
+                                ABOUT
+                            </a>
+                            <a
+                            {% if 'faq' in request.path %}
+                            class="dropdown-item active text-light"
+                            {% else %}
+                            class="dropdown-item text-light"
+                            {% endif %}
+                            href="{{ url_for('pages.faq') }}">
+                                FAQ
+                            </a>
+                        </div>
+                      </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link h-icon" href="{{url_for('cart_bp.get_cart')}}"><i class="fa fa-shopping-cart"> ({{ session['Shoppingcart']|length }})</i></a>
+                    </li>
+                    <li class="nav-item dropdown m-hide">
+                        <a href="#full-page-search" class="nav-link h-icon">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
